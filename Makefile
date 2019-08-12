@@ -12,6 +12,7 @@ PYTHON=python3
 BUILD_OPTS=bdist_wheel
 LIBGORE=$(GOPATH)/src/github.com/goretk/libgore
 LIBGORE_FILES={libgore.so,libgore.dll}
+LIBGORE_URL=
 
 .DEFAULT_GOAL := help
 
@@ -27,7 +28,7 @@ build: ## Build pip package
 
 .PHONY: clean
 clean: ## Remove folders created by build
-	@rm -rfv build/ dist/ pygore.egg-info/ pygore/$(LIBGORE_FILES)
+	@rm -rfv build/ dist/ pygore.egg-info/ pygore/$(LIBGORE_FILES) dltmp
 
 .PHONY: deploy_local
 deploy_local: ## Deploy local libgore files
@@ -37,3 +38,9 @@ deploy_local: ## Deploy local libgore files
 upload: ## Upload package to pypi
 	@twine upload dist/*
 
+.PHONY: download
+download: ## Download latest release of libgore
+	@mkdir -p dltmp
+	@curl -sL $(shell curl -s https://api.github.com/repos/goretk/libgore/releases/latest | grep browser_download_url | cut -d '"' -f 4 | grep linux) | bsdtar -xvf - -C dltmp
+	@curl -sL $(shell curl -s https://api.github.com/repos/goretk/libgore/releases/latest | grep browser_download_url | cut -d '"' -f 4 | grep windows) | bsdtar -xvf - -C dltmp
+	@cp -v dltmp/*/$(LIBGORE_FILES) pygore/.
