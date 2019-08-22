@@ -106,4 +106,4 @@ venv.bak/
 # libgore files
 libgore.so
 libgore.dll
-
+env.sh

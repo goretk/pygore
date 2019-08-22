@@ -10,7 +10,6 @@ WARN_COLOR=\033[33;01m
 MAKE_COLOR=\033[33;01m%-20s\033[0m
 PYTHON=python3
 BUILD_OPTS=bdist_wheel
-LIBGORE=$(GOPATH)/src/github.com/goretk/libgore
 LIBGORE_FILES={libgore.so,libgore.dll}
 LIBGORE_URL=
 
