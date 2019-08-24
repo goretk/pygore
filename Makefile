@@ -45,6 +45,7 @@ download: ## Download latest release of libgore
 	$(eval LINUX_URL=$(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep linux))
 	$(eval DARWIN_URL=$(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep darwin))
 	$(eval WINDOWS_URL=$(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep windows))
+	@echo "curl -sL $(LINUX_URL) | bsdtar -xvf - -C dltmp"
 	@curl -sL $(LINUX_URL) | bsdtar -xvf - -C dltmp
 	@curl -sL $(DARWIN_URL) | bsdtar -xvf - -C dltmp
 	@curl -sL $(WINDOWS_URL) | bsdtar -xvf - -C dltmp
