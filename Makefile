@@ -54,4 +54,4 @@ fetch_data: ## Fetch test resources
 
 .PHONY: test
 test: ## Run tests
-	@python -m unittest discover -v -s test -t .
+	@$(PYTHON) -m unittest discover -v -s test -t .
