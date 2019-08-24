@@ -18,7 +18,8 @@ matrix:
       osx_image: xcode11
       language: shell
       before_install:
-        alias bsdtar="tar"
+        - alias bsdtar="tar"
+        - make fetch_data download
 
 install: pip3 install --upgrade pip
 
