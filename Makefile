@@ -4,6 +4,7 @@ SHELL = /bin/bash
 DIR = $(shell pwd)
 
 REPO_URL=https://joakimkennedy.keybase.pub/gore-test
+LIBGORE_URL=https://api.github.com/repos/goretk/libgore/releases/latest
 DARWIN_URL=$(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep darwin)
 LINUX_URL=$(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep linux)
 WINDOWS_URL=$(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep windows)
@@ -16,7 +17,6 @@ MAKE_COLOR=\033[33;01m%-20s\033[0m
 PYTHON=python3
 BUILD_OPTS=bdist_wheel
 LIBGORE_FILES={libgore.so,libgore.dll,libgore.dylib}
-LIBGORE_URL=https://api.github.com/repos/goretk/libgore/releases/latest
 
 .DEFAULT_GOAL := help
 
@@ -45,7 +45,7 @@ upload: ## Upload package to pypi
 .PHONY: download
 download: ## Download latest release of libgore
 	@mkdir -p dltmp
-	@curl -sL $(LINUX_URL) | bsdtar -xvf - -C dltmp
+	curl -sL $(LINUX_URL) | bsdtar -xvf - -C dltmp
 	@curl -sL $(DARWIN_URL) | bsdtar -xvf - -C dltmp
 	@curl -sL $(WINDOWS_URL) | bsdtar -xvf - -C dltmp
 	@cp -v dltmp/*/$(LIBGORE_FILES) pygore/.
