@@ -46,6 +46,7 @@ upload: ## Upload package to pypi
 download: ## Download latest release of libgore
 	@mkdir -p dltmp
 	curl -sL $(LINUX_URL) | bsdtar -xvf - -C dltmp
+	curl -sL `curl -s https://api.github.com/repos/goretk/libgore/releases/latest | grep browser_download_url | cut -d '"' -f 4 | grep linux` | bsdtar -xvf - -C dltmp
 	@curl -sL $(DARWIN_URL) | bsdtar -xvf - -C dltmp
 	@curl -sL $(WINDOWS_URL) | bsdtar -xvf - -C dltmp
 	@cp -v dltmp/*/$(LIBGORE_FILES) pygore/.
