@@ -45,10 +45,9 @@ upload: ## Upload package to pypi
 .PHONY: download
 download: ## Download latest release of libgore
 	@mkdir -p dltmp
-	curl -sL $(LINUX_URL) | bsdtar -xvf - -C dltmp
-	curl -sL `curl -s https://api.github.com/repos/goretk/libgore/releases/latest | grep browser_download_url | cut -d '"' -f 4 | grep linux` | bsdtar -xvf - -C dltmp
-	@curl -sL $(DARWIN_URL) | bsdtar -xvf - -C dltmp
-	@curl -sL $(WINDOWS_URL) | bsdtar -xvf - -C dltmp
+	curl -s https://api.github.com/repos/goretk/libgore/releases/latest | grep browser_download_url | cut -d '"' -f 4 | grep linux | xargs -n 1 -I url curl -sL url | bsdtar -xvf - -C dltmp
+	curl -s https://api.github.com/repos/goretk/libgore/releases/latest | grep browser_download_url | cut -d '"' -f 4 | grep darwin | xargs -n 1 -I url curl -sL url | bsdtar -xvf - -C dltmp
+	curl -s https://api.github.com/repos/goretk/libgore/releases/latest | grep browser_download_url | cut -d '"' -f 4 | grep windows | xargs -n 1 -I url curl -sL url | bsdtar -xvf - -C dltmp
 	@cp -v dltmp/*/$(LIBGORE_FILES) pygore/.
 
 .PHONY: fetch_data
