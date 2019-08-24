@@ -42,9 +42,9 @@ upload: ## Upload package to pypi
 .PHONY: download
 download: ## Download latest release of libgore
 	@mkdir -p dltmp
-	@curl -sL $(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep linux) | bsdtar -xvf - -C dltmp
-	@curl -sL $(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep darwin) | bsdtar -xvf - -C dltmp
-	@curl -sL $(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep windows) | bsdtar -xvf - -C dltmp
+	@curl -sL `curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep linux` | bsdtar -xvf - -C dltmp
+	@curl -sL `curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep darwin` | bsdtar -xvf - -C dltmp
+	@curl -sL `curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep windows` | bsdtar -xvf - -C dltmp
 	@cp -v dltmp/*/$(LIBGORE_FILES) pygore/.
 
 .PHONY: fetch_data
