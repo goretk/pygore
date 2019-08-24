@@ -19,7 +19,8 @@ matrix:
       language: shell
       before_install:
         - alias bsdtar="tar"
-        - make fetch_data download
+        - make fetch_data
+        - ./dl_libgore.sh
 
 install: pip3 install --upgrade pip
 
