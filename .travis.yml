@@ -1,0 +1,14 @@
+language: python
+python:
+  - "3.6"
+  - "3.7"
+
+os:
+  - linux
+  - osx
+
+before_install:
+  - make fetch_data download
+
+script:
+  - make test build
