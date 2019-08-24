@@ -3,6 +3,7 @@
 # can be found in the LICENSE file.
 
 import pygore.internal as internal
+from ctypes import c_char_p
 
 
 class CompilerVersion:
@@ -242,6 +243,17 @@ class GoFile:
         '''
         internal._c_close(self.path)
         self.path = None
+
+    def set_compiler_version(self, version):
+        '''
+        Set an assumed compiler version to be used when extracting information
+        from the binary.
+        '''
+        c_ver = c_char_p(version.encode('utf-8'))
+        v = internal._c_setCompilerVersion(self.path, c_ver)
+        if v != 0:
+            return True
+        return False
 
     def get_compiler_version(self):
         '''
