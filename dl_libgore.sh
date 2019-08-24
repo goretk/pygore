@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 RELEASE_URL=https://api.github.com/repos/goretk/libgore/releases/latest
 
