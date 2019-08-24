@@ -3,6 +3,8 @@ APP = pygore
 SHELL = /bin/bash
 DIR = $(shell pwd)
 
+REPO_URL=https://joakimkennedy.keybase.pub/gore-test
+
 NO_COLOR=\033[0m
 OK_COLOR=\033[32;01m
 ERROR_COLOR=\033[31;01m
@@ -10,7 +12,7 @@ WARN_COLOR=\033[33;01m
 MAKE_COLOR=\033[33;01m%-20s\033[0m
 PYTHON=python3
 BUILD_OPTS=bdist_wheel
-LIBGORE_FILES={libgore.so,libgore.dll}
+LIBGORE_FILES={libgore.so,libgore.dll,libgore.dylib}
 LIBGORE_URL=https://api.github.com/repos/goretk/libgore/releases/latest
 
 .DEFAULT_GOAL := help
@@ -41,5 +43,15 @@ upload: ## Upload package to pypi
 download: ## Download latest release of libgore
 	@mkdir -p dltmp
 	@curl -sL $(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep linux) | bsdtar -xvf - -C dltmp
+	@curl -sL $(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep darwin) | bsdtar -xvf - -C dltmp
 	@curl -sL $(shell curl -s $(LIBGORE_URL) | grep browser_download_url | cut -d '"' -f 4 | grep windows) | bsdtar -xvf - -C dltmp
 	@cp -v dltmp/*/$(LIBGORE_FILES) pygore/.
+
+.PHONY: fetch_data
+fetch_data: ## Fetch test resources
+	@mkdir -p test/resources
+	@curl -o test/resources/golden -# -L $(REPO_URL)/gold-linux-amd64-1.12.0
+
+.PHONY: test
+test: ## Run tests
+	@python -m unittest discover -v -s test -t .

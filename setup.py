@@ -18,7 +18,8 @@ setuptools.setup(
         "Development Status :: 4 - Beta",
         "Operating System :: POSIX :: Linux",
         "Operating System :: Microsoft :: Windows",
+        "Operating System :: MacOS :: MacOS X",
     ],
-    package_data={'': ['libgore.so', 'libgore.dll']},
+    package_data={'': ['libgore.so', 'libgore.dll', 'libgore.dylib']},
     include_package_data=True,
 )

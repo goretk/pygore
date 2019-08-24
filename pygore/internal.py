@@ -13,6 +13,8 @@ if platform == 'linux' or platform == 'linux2':
     libFile = 'libgore.so'
 elif platform == 'win32':
     libFile = 'libgore.dll'
+elif platform == 'darwin':
+    libFile = 'libgore.dylib'
 else:
     raise Exception('{} not supported'.format(platform))
 
