@@ -106,6 +106,11 @@ _c_open.argtypes = [c_char_p]
 _c_close = lib.close
 _c_close.argtypes = [c_char_p]
 
+# Call to set the compiler version
+_c_setCompilerVersion = lib.setGoVersion
+_c_setCompilerVersion.argtypes = [c_void_p, c_void_p]
+_c_setCompilerVersion.restype = c_int
+
 # Call to get compiler version.
 _c_getCompilerVersion = lib.getCompilerVersion
 _c_getCompilerVersion.argtypes = [c_void_p]
