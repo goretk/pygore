@@ -13,6 +13,8 @@ if platform == 'linux' or platform == 'linux2':
     libFile = 'libgore.so'
 elif platform == 'win32':
     libFile = 'libgore.dll'
+elif platform == 'darwin':
+    libFile = 'libgore.dylib'
 else:
     raise Exception('{} not supported'.format(platform))
 
@@ -99,44 +101,44 @@ _Types._fields_ = [('types', POINTER(POINTER(_Type))),
 
 
 # Call top open a go file.
-_c_open = lib.open
+_c_open = lib.gore_open
 _c_open.argtypes = [c_char_p]
 
 # Call top open a go file.
-_c_close = lib.close
+_c_close = lib.gore_close
 _c_close.argtypes = [c_char_p]
 
 # Call to set the compiler version
-_c_setCompilerVersion = lib.setGoVersion
+_c_setCompilerVersion = lib.gore_setGoVersion
 _c_setCompilerVersion.argtypes = [c_void_p, c_void_p]
 _c_setCompilerVersion.restype = c_int
 
 # Call to get compiler version.
-_c_getCompilerVersion = lib.getCompilerVersion
+_c_getCompilerVersion = lib.gore_getCompilerVersion
 _c_getCompilerVersion.argtypes = [c_void_p]
 _c_getCompilerVersion.restype = POINTER(_CompilerVersion)
 
 # Call to get packages.
-_c_getPackages = lib.getPackages
+_c_getPackages = lib.gore_getPackages
 _c_getPackages.argtypes = [c_void_p]
 _c_getPackages.restype = POINTER(_Packages)
 
 # Call to get vendor packages.
-_c_getVendors = lib.getVendors
+_c_getVendors = lib.gore_getVendors
 _c_getVendors.argtypes = [c_void_p]
 _c_getVendors.restype = POINTER(_Packages)
 
 # Call to get standard library packages.
-_c_getstd = lib.getSTDLib
+_c_getstd = lib.gore_getSTDLib
 _c_getstd.argtypes = [c_void_p]
 _c_getstd.restype = POINTER(_Packages)
 
 # Get packages that failed to be classified.
-_c_getunknown = lib.getUnknown
+_c_getunknown = lib.gore_getUnknown
 _c_getunknown.argtypes = [c_void_p]
 _c_getunknown.restype = POINTER(_Packages)
 
 # Get types
-_c_getTypes = lib.getTypes
+_c_getTypes = lib.gore_getTypes
 _c_getTypes.argtypes = [c_void_p]
 _c_getTypes.restype = POINTER(_Types)
