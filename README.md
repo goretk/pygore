@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/goretk/pygore.svg?branch=master)](https://travis-ci.org/goretk/pygore
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pygore)
+![PyPI](https://img.shields.io/pypi/v/pygore)
 # pyGoRE - Python library for analyzing Go binaries
 
 ## How to use
