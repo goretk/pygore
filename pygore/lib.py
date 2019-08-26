@@ -301,9 +301,9 @@ class GoFile:
 def _get_compiler_version(path):
     pcv = internal._c_getCompilerVersion(path)
     cv = pcv.contents
-    return CompilerVersion(str(cv.name.decode('utf-8')),
-                           str(cv.sha.decode('utf-8')),
-                           str(cv.timestamp.decode('utf-8')))
+    return CompilerVersion(str(cv.name.decode('utf-8', 'replace')),
+                           str(cv.sha.decode('utf-8', 'replace')),
+                           str(cv.timestamp.decode('utf-8', 'replace')))
 
 
 def _parsePackages(pps):
@@ -316,34 +316,34 @@ def _parsePackages(pps):
         # Functions
         for j in range(p.numFuncs):
             f = p.functions[j][0]
-            name = str(f.name.decode('utf-8'))
+            name = str(f.name.decode('utf-8', 'replace'))
             srcl = int(f.srcLineLength)
             srcs = int(f.srcLineStart)
             srce = int(f.srcLineEnd)
             off = int(f.offset)
             end = int(f.end)
-            fn = str(f.fileName.decode('utf-8'))
-            pn = str(f.packageName.decode('utf-8'))
+            fn = str(f.fileName.decode('utf-8', 'replace'))
+            pn = str(f.packageName.decode('utf-8', 'replace'))
             fcks.append(Function(name, srcl, srcs, srce, off, end,
                                  fn, pn))
         # Methods
         for j in range(p.numMeths):
             f = p.methods[j][0]
-            name = str(f.function[0].name.decode('utf-8'))
+            name = str(f.function[0].name.decode('utf-8', 'replace'))
             srcl = int(f.function[0].srcLineLength)
             srcs = int(f.function[0].srcLineStart)
             srce = int(f.function[0].srcLineEnd)
             off = int(f.function[0].offset)
             end = int(f.function[0].end)
-            fn = str(f.function[0].fileName.decode('utf-8'))
-            pn = str(f.function[0].packageName.decode('utf-8'))
-            rec = str(f.receiver.decode('utf-8'))
+            fn = str(f.function[0].fileName.decode('utf-8', 'replace'))
+            pn = str(f.function[0].packageName.decode('utf-8', 'replace'))
+            rec = str(f.receiver.decode('utf-8', 'replace'))
             meths.append(Method(name, srcl, srcs, srce, off, end,
                                 fn, pn, rec))
 
         # Package
-        name = str(p.name.decode('utf-8'))
-        fp = str(p.filepath.decode('utf-8'))
+        name = str(p.name.decode('utf-8', 'replace'))
+        fp = str(p.filepath.decode('utf-8', 'replace'))
         pkgs.append(Package(name, fp, fcks, meths))
     return pkgs
 
@@ -353,7 +353,7 @@ def _parse_method_type(ms, cache):
     for i in range(ms.contents.length):
         m = ms.contents.methods[i][0]
         typ = _convert_type(m.gotype.contents, cache) if m.gotype else None
-        methods.append(Method_Type(str(m.name.decode('utf-8')), typ,
+        methods.append(Method_Type(str(m.name.decode('utf-8', 'replace')), typ,
                                    int(m.ifaceAddr), int(m.funcAddr)))
     return methods
 
@@ -367,11 +367,11 @@ def _convert_type(t, cache):
     typ = Type()
     typ.addr = int(t.addr)
     typ.kind = int(t.kind),
-    typ.name = str(t.name.decode('utf-8'))
+    typ.name = str(t.name.decode('utf-8', 'replace'))
     typ.ptrResolved = int(t.ptrResolved)
-    typ.packagePath = str(t.packagePath.decode('utf-8'))
-    typ.fieldName = str(t.fieldName.decode('utf-8'))
-    typ.fieldTag = str(t.fieldTag.decode('utf-8'))
+    typ.packagePath = str(t.packagePath.decode('utf-8', 'replace'))
+    typ.fieldName = str(t.fieldName.decode('utf-8', 'replace'))
+    typ.fieldTag = str(t.fieldTag.decode('utf-8', 'replace'))
     typ.length = int(t.length)
     typ.chanDir = int(t.chanDir)
     cache[int(t.addr)] = typ
