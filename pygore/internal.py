@@ -77,7 +77,7 @@ class _Methods_Type(Structure):
                 ('length', c_ulong)]
 
 
-_Type._fields_ = [('kind', c_ulong),
+_Type._fields_ = [('kind', c_uint),
                   ('name', c_char_p),
                   ('addr', c_ulonglong),
                   ('ptrResolved', c_ulonglong),
