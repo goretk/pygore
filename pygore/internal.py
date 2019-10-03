@@ -4,7 +4,7 @@
 
 import os
 from sys import platform
-from ctypes import Structure, POINTER, c_char_p, c_int, c_ulong, c_ulonglong,\
+from ctypes import Structure, POINTER, c_char_p, c_int, c_uint, c_ulong, c_ulonglong,\
                    c_void_p, cdll
 
 libFile = ""
@@ -77,7 +77,7 @@ class _Methods_Type(Structure):
                 ('length', c_ulong)]
 
 
-_Type._fields_ = [('kind', c_ulong),
+_Type._fields_ = [('kind', c_uint),
                   ('name', c_char_p),
                   ('addr', c_ulonglong),
                   ('ptrResolved', c_ulonglong),
