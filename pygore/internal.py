@@ -4,7 +4,7 @@
 
 import os
 from sys import platform
-from ctypes import Structure, POINTER, c_char_p, c_int, c_ulong, c_ulonglong,\
+from ctypes import Structure, POINTER, c_char_p, c_int, c_uint, c_ulong, c_ulonglong,\
                    c_void_p, cdll
 
 libFile = ""
