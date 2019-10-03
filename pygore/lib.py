@@ -366,7 +366,7 @@ def _convert_type(t, cache):
 
     typ = Type()
     typ.addr = int(t.addr)
-    typ.kind = int(t.kind),
+    typ.kind = int(t.kind)
     typ.name = str(t.name.decode('utf-8', 'replace'))
     typ.ptrResolved = int(t.ptrResolved)
     typ.packagePath = str(t.packagePath.decode('utf-8', 'replace'))
