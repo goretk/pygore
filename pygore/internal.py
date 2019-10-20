@@ -4,8 +4,8 @@
 
 import os
 from sys import platform
-from ctypes import Structure, POINTER, c_char_p, c_int, c_uint, c_ulong, c_ulonglong,\
-                   c_void_p, cdll
+from ctypes import Structure, POINTER, c_char_p, c_int, c_uint, c_ulong, \
+                   c_ulonglong, c_void_p, cdll
 
 libFile = ""
 
@@ -142,3 +142,8 @@ _c_getunknown.restype = POINTER(_Packages)
 _c_getTypes = lib.gore_getTypes
 _c_getTypes.argtypes = [c_void_p]
 _c_getTypes.restype = POINTER(_Types)
+
+# Get Build ID
+_c_build_id = lib.gore_build_id
+_c_build_id.argtypes = [c_void_p]
+_c_build_id.restype = c_char_p
