@@ -297,6 +297,12 @@ class GoFile:
         cache = dict()
         return _parseTypes(types, cache)
 
+    def get_build_id(self):
+        '''
+        Returns the extracted build id from the binary.
+        '''
+        return str(internal._c_build_id(self.path).decode('utf-8', 'replace'))
+
 
 def _get_compiler_version(path):
     pcv = internal._c_getCompilerVersion(path)

@@ -2,12 +2,13 @@ APP = pygore
 
 SHELL = /bin/bash
 DIR = $(shell pwd)
+LIBGORE_VERSION = $(shell cat libgore.version)
 
 REPO_URL=https://joakimkennedy.keybase.pub/gore-test
 MIRROR_URL=https://joakimkennedy.keybase.pub/libgore-mirror
-DARWIN_URL=$(MIRROR_URL)/libgore-latest-darwin.tar.gz
-LINUX_URL=$(MIRROR_URL)/libgore-latest-linux.tar.gz
-WINDOWS_URL=$(MIRROR_URL)/libgore-latest-windows.zip
+DARWIN_URL=$(MIRROR_URL)/libgore-v$(LIBGORE_VERSION)-darwin-amd64.tar.gz
+LINUX_URL=$(MIRROR_URL)/libgore-v$(LIBGORE_VERSION)-linux-amd64.tar.gz
+WINDOWS_URL=$(MIRROR_URL)/libgore-v$(LIBGORE_VERSION)-windows.zip
 
 NO_COLOR=\033[0m
 OK_COLOR=\033[32;01m

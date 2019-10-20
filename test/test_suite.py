@@ -4,6 +4,8 @@ import os
 import pygore
 
 golden_file = os.path.dirname(__file__) + '/' + 'resources/golden'
+gold_build_id = ('W11rzA8dxCieF64mk9rO/wmqBULPx6tMOdPbSBabM/X40xrZ4nVRHkrWOKb'
+                 'wZw/JpQDPeWBsrG9Rn_jzf3s')
 
 
 class TestPyGore(unittest.TestCase):
@@ -39,6 +41,10 @@ class TestPyGore(unittest.TestCase):
 
         self.assertIsNotNone(ss, msg='Types should include simpleStruct')
         self.assertIsNotNone(cs, msg='Types should include myComplexStruct')
+
+    def test_build_id(self):
+        build_id = self.file.get_build_id()
+        self.assertEqual(gold_build_id, build_id)
 
 
 if __name__ == '__main__':
