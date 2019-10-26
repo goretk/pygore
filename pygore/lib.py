@@ -213,6 +213,7 @@ class Type:
         self.fields = fields
         self.fieldName = fieldName
         self.fieldTag = fieldTag
+        self.fieldAnon = fieldAnon
         self.element = element
         self.length = length
         self.chanDir = chanDir
