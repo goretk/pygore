@@ -13,6 +13,7 @@ setuptools.setup(
     url="https://github.com/goretk/pygore",
     packages=setuptools.find_packages(),
     classifiers=[
+        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Development Status :: 4 - Beta",

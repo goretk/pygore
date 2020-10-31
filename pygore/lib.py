@@ -6,7 +6,7 @@ import pygore.internal as internal
 from ctypes import c_char_p
 
 
-class CompilerVersion:
+class CompilerVersion(object):
     '''
     CompilerVersion is a representation of the Go compiler used to compile
     the binary
@@ -36,7 +36,7 @@ class CompilerVersion:
         self.timestamp = timestamp
 
 
-class Function:
+class Function(object):
     '''
     Function is a representation of a Go function.
 
@@ -99,11 +99,11 @@ class Method(Function):
     def __init__(self, name, line_length, line_start, line_end,
                  offset, end, filename, package_name, receiver):
         self.receiver = receiver
-        super().__init__(name, line_length, line_start, line_end, offset, end,
+        super(Method, self).__init__(name, line_length, line_start, line_end, offset, end,
                          filename, package_name)
 
 
-class Package:
+class Package(object):
     '''
     Package is a representation of a Go package.
 
@@ -125,7 +125,7 @@ class Package:
         self.methods = methods
 
 
-class Method_Type:
+class Method_Type(object):
     '''
     Method-Type is the description of a method owned by the Type.
     It holds the method type information.
@@ -156,7 +156,7 @@ class Method_Type:
         self.funcOffset = funcOffset
 
 
-class Type:
+class Type(object):
     '''
     Type is a representation of all types in Go.
 
@@ -223,7 +223,7 @@ class Type:
         self.isVariadic = isVariadic
 
 
-class GoFile:
+class GoFile(object):
     '''
     GoFile is a representation of a Go binary file.
 
