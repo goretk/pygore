@@ -109,3 +109,6 @@ libgore.dll
 libgore.dylib
 env.sh
 test/resources/
+
+# VSCode
+.vscode
