@@ -48,6 +48,23 @@ class TestPyGore(unittest.TestCase):
         build_id = self.file.get_build_id()
         self.assertEqual(gold_build_id, build_id)
 
+class TestBug14(unittest.TestCase):
+    def setUp(self):
+        golden_file = os.path.dirname(__file__) + '/' + 'resources/bettercap'
+        self.file = pygore.GoFile(golden_file)
+
+    def tearDown(self):
+        self.file.close()
+
+    def test_blank_field_name(self):
+        types = self.file.get_types()
+        for t in types:
+            if t.fields is None:
+                continue
+            for f in t.fields:
+                pass
+                self.assertIsNot(f.fieldName, "", msg="Empty field name for {} field".format(t.name))
+
 
 if __name__ == '__main__':
     unittest.main()

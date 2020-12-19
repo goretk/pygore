@@ -415,21 +415,33 @@ def _convert_type(t, cache):
     typ.name = str(t.name.decode('utf-8', 'replace'))
     typ.ptrResolved = int(t.ptrResolved)
     typ.packagePath = str(t.packagePath.decode('utf-8', 'replace'))
-    typ.fieldName = str(t.fieldName.decode('utf-8', 'replace'))
-    typ.fieldTag = str(t.fieldTag.decode('utf-8', 'replace'))
+
+    # If the type is a struct and has fields, extract field information.
+    if t.kind == Kind.Struct and t.fields:
+        typ.fields = []
+        for i in range(t.fields.contents.length):
+            field = t.fields.contents.types[i].contents
+            f = Type()
+            f.fieldName = str(field.fieldName.decode('utf-8', 'replace'))
+            if field.fieldTag:
+                f.fieldTag = str(field.fieldTag.decode('utf-8', 'replace'))
+            f.typeAnon = True if field.fieldAnon > 0 else False
+            f.kind = Kind(field.kind)
+            f.addr = int(field.addr)
+            f.name = str(field.name.decode('utf-8', 'replace'))
+            typ.fields.append(f)
+
     typ.length = int(t.length)
     if t.chanDir != 0:
         typ.chanDir = ChanDir(t.chanDir)
 
     cache[int(t.addr)] = typ
-
-    typ.typeAnon = True if t.fieldAnon > 0 else False
+    
     typ.isVariadic = True if t.isVariadic > 0 else False
     typ.element = _convert_type(t.element.contents,
                                 cache) if t.element else None
     typ.key = _convert_type(t.key.contents,
                             cache) if t.key else None
-    typ.fields = _parseTypes(t.fields, cache) if t.fields else None
     typ.funcArgs = _parseTypes(t.funcArgs, cache) if t.funcArgs else None
     typ.funcReturns = _parseTypes(t.funcReturns,
                                   cache) if t.funcReturns else None
