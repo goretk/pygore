@@ -36,8 +36,10 @@ class TestPyGore(unittest.TestCase):
         for t in typs:
             if t.name == 'main.myComplexStruct':
                 cs = t
+                self.assertEqual(t.kind, pygore.Kind.Struct)
             elif t.name == 'main.simpleStruct':
                 ss = t
+                self.assertEqual(t.kind, pygore.Kind.Struct)
 
         self.assertIsNotNone(ss, msg='Types should include simpleStruct')
         self.assertIsNotNone(cs, msg='Types should include myComplexStruct')
