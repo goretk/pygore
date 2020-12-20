@@ -55,6 +55,7 @@ download: ## Download latest release of libgore
 fetch_data: ## Fetch test resources
 	@mkdir -p test/resources
 	@curl -o test/resources/golden -# -L $(REPO_URL)/gold-linux-amd64-1.12.0
+	@curl -o test/resources/bettercap -# -L $(REPO_URL)/bettercap
 
 .PHONY: test
 test: ## Run tests
