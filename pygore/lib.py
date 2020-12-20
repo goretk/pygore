@@ -4,6 +4,44 @@
 
 import pygore.internal as internal
 from ctypes import c_char_p
+from enum import Enum
+
+
+class Kind(Enum):
+    Invalid = 0
+    Bool = 1
+    Int = 2
+    Int8 = 3
+    Int16 = 4
+    Int32 = 5
+    Int64 = 6
+    Uint = 7
+    Uint8 = 8
+    Uint16 = 9
+    Uint32 = 10
+    Uint64 = 11
+    Uintptr = 12
+    Float32 = 13
+    Float64 = 14
+    Complex64 = 15
+    Complex128 = 16
+    Array = 17
+    Chan = 18
+    Func = 19
+    Interface = 20
+    Map = 21
+    Ptr = 22
+    Slice = 23
+    String = 24
+    Struct = 25
+    UnsafePointer = 26
+    KindEnd = 27
+
+
+class ChanDir(Enum):
+    ChanRecv = 1 << 0
+    ChanSend = 1 << 1
+    ChanBoth = (1 << 0) | (1 << 1)
 
 
 class CompilerVersion:
@@ -162,7 +200,7 @@ class Type:
 
     Attributes
     ----------
-    kind : int
+    kind : Kind
         indicates the specific kind of type the Type
     name : str
         the name of the type.
@@ -186,7 +224,7 @@ class Type:
         pointer type. For example int if the slice is a []int.
     length : int
         the array or slice length.
-    chanDir : int
+    chanDir : ChanDir
         the channel direction.
     key : Type
         the key type for a map.
@@ -373,14 +411,16 @@ def _convert_type(t, cache):
 
     typ = Type()
     typ.addr = int(t.addr)
-    typ.kind = int(t.kind)
+    typ.kind = Kind(t.kind)
     typ.name = str(t.name.decode('utf-8', 'replace'))
     typ.ptrResolved = int(t.ptrResolved)
     typ.packagePath = str(t.packagePath.decode('utf-8', 'replace'))
     typ.fieldName = str(t.fieldName.decode('utf-8', 'replace'))
     typ.fieldTag = str(t.fieldTag.decode('utf-8', 'replace'))
     typ.length = int(t.length)
-    typ.chanDir = int(t.chanDir)
+    if t.chanDir != 0:
+        typ.chanDir = ChanDir(t.chanDir)
+
     cache[int(t.addr)] = typ
 
     typ.typeAnon = True if t.fieldAnon > 0 else False

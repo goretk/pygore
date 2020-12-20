@@ -3,4 +3,4 @@
 # can be found in the LICENSE file.
 
 from .lib import CompilerVersion, Function, Method, Package, GoFile,\
-                 Method_Type, Type
+                 Method_Type, Type, Kind, ChanDir
