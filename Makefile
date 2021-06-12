@@ -49,9 +49,9 @@ upload: ## Upload package to pypi
 .PHONY: download
 download: ## Download latest release of libgore
 	@mkdir -p dltmp
-	@curl -sL $(LINUX_URL) | tar xvfz - -C dltmp
-	@curl -sL $(DARWIN_URL) | tar xvfz - -C dltmp
-	@curl -sL $(WINDOWS_URL) | tar xvfz - -C dltmp
+	@curl -sL $(LINUX_URL) | bsdtar -xvf - -C dltmp
+	@curl -sL $(DARWIN_URL) | bsdtar -xvf - -C dltmp
+	@curl -sL $(WINDOWS_URL) | bsdtar -xvf - -C dltmp
 	@cp -v dltmp/*/$(LIBGORE_FILES) pygore/.
 
 .PHONY: fetch_data
