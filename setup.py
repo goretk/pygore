@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='pygore',
-    version='0.4.6',
+    version='0.5.0',
     author="Go Reverse Engineering Tool Kit",
     description="Python bindings for the Go Reverse Engineering Tool Kit",
     long_description=long_description,
