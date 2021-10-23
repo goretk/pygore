@@ -82,30 +82,17 @@ class Function:
     ----------
     name : str
         the extracted function name.
-    line_length : int
-        the number of source code lines for the function.
-    line_start : int
-        the starting source code line number for the function.
-    line_end : int `json:"srcEnd"`
-        the ending source code line number for the function.
     offset : int
         the starting location for the subroutine in the binary.
     end : int
         the end location for the subroutine in the binary.
-    filename : str
-        the name of the source code file for the function.
     package_name : str
         the name of the Go package the function belongs to.
     '''
-    def __init__(self, name, line_length, line_start, line_end,
-                 offset, end, filename, package_name):
+    def __init__(self, name, offset, end, package_name):
         self.name = name
-        self.line_length = line_length
-        self.line_start = line_start
-        self.line_end = line_end
         self.offset = offset
         self.end = end
-        self.filename = filename
         self.package_name = package_name
 
 
@@ -117,28 +104,18 @@ class Method(Function):
     ----------
     name : str
         the extracted method name.
-    line_length : int
-        the number of source code lines for the method.
-    line_start : int
-        the starting source code line number for the method.
-    line_end : int `json:"srcend"`
-        the ending source code line number for the method.
     offset : int
         the starting location for the subroutine in the binary.
     end : int
         the end location for the subroutine in the binary.
-    filename : str
-        the name of the source code file for the method.
     package_name : str
         the name of the go package the method belongs to.
     receiver : str
         the name of the method receiver.
     '''
-    def __init__(self, name, line_length, line_start, line_end,
-                 offset, end, filename, package_name, receiver):
+    def __init__(self, name, offset, end, package_name, receiver):
         self.receiver = receiver
-        super().__init__(name, line_length, line_start, line_end, offset, end,
-                         filename, package_name)
+        super().__init__(name, offset, end, package_name)
 
 
 class Package:
@@ -362,29 +339,20 @@ def _parsePackages(pps):
         for j in range(p.numFuncs):
             f = p.functions[j][0]
             name = str(f.name.decode('utf-8', 'replace'))
-            srcl = int(f.srcLineLength)
-            srcs = int(f.srcLineStart)
-            srce = int(f.srcLineEnd)
             off = int(f.offset)
             end = int(f.end)
-            fn = str(f.fileName.decode('utf-8', 'replace'))
             pn = str(f.packageName.decode('utf-8', 'replace'))
-            fcks.append(Function(name, srcl, srcs, srce, off, end,
-                                 fn, pn))
+            fcks.append(Function(name, off, end, pn))
+        
         # Methods
         for j in range(p.numMeths):
             f = p.methods[j][0]
             name = str(f.function[0].name.decode('utf-8', 'replace'))
-            srcl = int(f.function[0].srcLineLength)
-            srcs = int(f.function[0].srcLineStart)
-            srce = int(f.function[0].srcLineEnd)
             off = int(f.function[0].offset)
             end = int(f.function[0].end)
-            fn = str(f.function[0].fileName.decode('utf-8', 'replace'))
             pn = str(f.function[0].packageName.decode('utf-8', 'replace'))
             rec = str(f.receiver.decode('utf-8', 'replace'))
-            meths.append(Method(name, srcl, srcs, srce, off, end,
-                                fn, pn, rec))
+            meths.append(Method(name, off, end, pn, rec))
 
         # Package
         name = str(p.name.decode('utf-8', 'replace'))

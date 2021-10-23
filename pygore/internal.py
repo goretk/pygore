@@ -29,12 +29,8 @@ class _CompilerVersion(Structure):
 
 class _Function(Structure):
     _fields_ = [('name', c_char_p),
-                ('srcLineLength', c_int),
-                ('srcLineStart', c_int),
-                ('srcLineEnd', c_int),
                 ('offset', c_ulonglong),
                 ('end', c_ulonglong),
-                ('fileName', c_char_p),
                 ('packageName', c_char_p)]
 
 
