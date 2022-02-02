@@ -385,7 +385,7 @@ def _convert_type(t, cache):
     typ.packagePath = str(t.packagePath.decode('utf-8', 'replace'))
 
     # If the type is a struct and has fields, extract field information.
-    if t.kind == Kind.Struct and t.fields:
+    if t.kind == Kind.Struct.value and t.fields:
         typ.fields = []
         for i in range(t.fields.contents.length):
             field = t.fields.contents.types[i].contents
